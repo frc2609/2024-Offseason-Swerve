@@ -4,9 +4,15 @@
 
 package frc.robot;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -19,6 +25,8 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     DataLogManager.start(); // log NetworkTables values
     DriverStation.startDataLog(DataLogManager.getLog()); // log DS data
+
+    reportGitInfo();
 
     m_robotContainer = new RobotContainer();
   }
@@ -77,4 +85,28 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testExit() {}
+
+  /**
+   * Report current branch and commit SHA to SmartDashboard. Cannot report
+   * whether any files have been modified since the last commit.
+   */
+  private void reportGitInfo() {
+    File deployDir = Filesystem.getDeployDirectory();
+    File branchFile = new File(deployDir, "branch.txt");
+    File commitFile = new File(deployDir, "commit.txt");
+
+    try {
+      SmartDashboard.putString("Git Branch", Files.readString(branchFile.toPath()));
+    } catch (IOException e) {
+      DataLogManager.log("Could not retrieve Git Branch.");
+      e.printStackTrace();
+    }
+
+    try {
+      SmartDashboard.putString("Git Commit SHA", Files.readString(commitFile.toPath()));
+    } catch (IOException e) {
+      DataLogManager.log("Could not retrieve Git Commit SHA.");
+      e.printStackTrace();
+    }
+  }
 }
