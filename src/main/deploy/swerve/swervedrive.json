@@ -1,0 +1,18 @@
+{
+  "imu": {
+    "type": "navx",
+    "id": 0,
+    "canbus": null
+  },
+  "invertedIMU": true,
+  "conversionFactor": {
+    "angle": 0,
+    "drive": 0
+  },
+  "modules": [
+    "frontleft.json",
+    "frontright.json",
+    "backleft.json",
+    "backright.json"
+  ]
+}
