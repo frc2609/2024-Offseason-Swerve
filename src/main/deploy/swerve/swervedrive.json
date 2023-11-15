@@ -5,10 +5,6 @@
     "canbus": null
   },
   "invertedIMU": true,
-  "conversionFactor": {
-    "angle": 0,
-    "drive": 0
-  },
   "modules": [
     "frontleft.json",
     "frontright.json",
