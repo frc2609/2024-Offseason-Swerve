@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Swerve;
+import frc.robot.RobotContainer;
 import frc.robot.utils.TunableNumber;
 import swervelib.SwerveDrive;
 import swervelib.parser.SwerveParser;
@@ -21,6 +22,12 @@ public class Drive extends SubsystemBase {
   public final TunableNumber linearSpeedMultiplier = new TunableNumber("swerve/teleop/Linear Speed Multiplier", 1.0);
   /** The multiplier to apply to 'Swerve.maxAttainableAngularSpeed'. */
   public final TunableNumber angularSpeedMultiplier = new TunableNumber("swerve/teleop/Angular Speed Multiplier", 1.0);
+  /** The multiplier applied by default to getTeleopMaxLinearSpeed(). */
+  private final TunableNumber normalMultiplier = new TunableNumber("swerve/teleop/Normal Speed Multiplier", 0.6);
+  /** How much to increase the speed multiplier in getTeleopMaxLinearSpeed(). */
+  private final TunableNumber boostIncrease = new TunableNumber("swerve/teleop/Boost Speed Multiplier Increase", 0.4);
+  /** How much to decrease the speed multiplier in getTeleopMaxLinearSpeed(). */
+  private final TunableNumber precisionReduction = new TunableNumber("swerve/teleop/Precision Speed Multiplier Reduction", 0.4);
   public final SwerveDrive drive;
 
   /** Creates a new Drive. */
@@ -52,5 +59,18 @@ public class Drive extends SubsystemBase {
 
   public double getMaxLinearSpeed() {
     return Swerve.maxAttainableLinearSpeed * linearSpeedMultiplier.get();
+  }
+
+  /**
+   * Calculate the robot's max linear speed during teleop based on the status
+   * of the boost/precision buttons.
+   * @return Max linear speed * overall boost/precision multiplier.
+   */
+  public double getTeleopMaxLinearSpeed() {
+    final boolean boost = RobotContainer.driverController.rightBumper().getAsBoolean();
+    final boolean precision = RobotContainer.driverController.leftBumper().getAsBoolean();
+    // add boost/subtract precision according to button state
+    final double multiplier = normalMultiplier.get() + (boost ? boostIncrease.get() : 0) - (precision ? precisionReduction.get() : 0);
+    return getMaxLinearSpeed() * multiplier;
   }
 }

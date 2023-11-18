@@ -9,21 +9,18 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.Xbox;
-import frc.robot.utils.TunableNumber;
 
 /**
- * Drive the robot using the driver controller.
- * Left bumper slows robot down, right bumper speeds it up.
+ * Drive the robot using translational and rotational velocity from the driver
+ * controller.
+ * <p>Left bumper slows robot down, right bumper speeds it up.
  * Precision/Boost amount can be adjusted through NetworkTables.
  */
-public class TeleopDrive extends Command {
+public class TeleopVelocityDrive extends Command {
   private final boolean isFieldRelative;
-  private final TunableNumber normalMultiplier = new TunableNumber("swerve/teleop/Normal Speed Multiplier", 0.6);
-  private final TunableNumber boostIncrease = new TunableNumber("swerve/teleop/Boost Speed Multiplier Increase", 0.4);
-  private final TunableNumber precisionReduction = new TunableNumber("swerve/teleop/Precision Speed Multiplier Reduction", 0.4);
 
-  /** Creates a new TeleopDrive. */
-  public TeleopDrive(boolean isFieldRelative) {
+  /** Creates a new TeleopVelocityDrive. */
+  public TeleopVelocityDrive(boolean isFieldRelative) {
     this.isFieldRelative = isFieldRelative;
     addRequirements(RobotContainer.drive);
   }
@@ -42,14 +39,8 @@ public class TeleopDrive extends Command {
     // controller is +ve right (CW+), YAGSL expects CCW+ (+ve left)
     final double desiredAngularVelocity = MathUtil.applyDeadband(-RobotContainer.driverController.getRightX(), Xbox.joystickDeadband);
 
-    final boolean boost = RobotContainer.driverController.rightBumper().getAsBoolean();
-    final boolean precision = RobotContainer.driverController.leftBumper().getAsBoolean();
-    // add boost/subtract precision according to button state
-    final double multiplier = normalMultiplier.get() + (boost ? boostIncrease.get() : 0) - (precision ? precisionReduction.get() : 0);
-    final double maxSpeed = RobotContainer.drive.getMaxLinearSpeed() * multiplier;
-
     RobotContainer.drive.drive.drive(
-      new Translation2d(desiredXTranslation, desiredYTranslation).times(maxSpeed),
+      new Translation2d(desiredXTranslation, desiredYTranslation).times(RobotContainer.drive.getTeleopMaxLinearSpeed()),
       desiredAngularVelocity * RobotContainer.drive.getMaxAngularSpeed(),
       isFieldRelative,
       false
