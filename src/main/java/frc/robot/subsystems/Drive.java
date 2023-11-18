@@ -10,7 +10,6 @@ import java.io.IOException;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Swerve;
 import frc.robot.utils.TunableNumber;
@@ -35,7 +34,6 @@ public class Drive extends SubsystemBase {
       DataLogManager.log("Swerve Drive File Error: " + e.getMessage());
       throw new RuntimeException("Swerve Drive failed to initialize.");
     }
-    SmartDashboard.putNumber("max linear speed", getMaxLinearSpeed());
   }
 
   @Override
