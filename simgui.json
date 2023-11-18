@@ -1,0 +1,47 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Field": "Field2d",
+      "/SmartDashboard/navX-Sensor[1]": "Gyro"
+    },
+    "windows": {
+      "/SmartDashboard/Field": {
+        "window": {
+          "visible": true
+        }
+      }
+    }
+  },
+  "NetworkTables": {
+    "transitory": {
+      "SmartDashboard": {
+        "Field": {
+          "open": true
+        },
+        "open": true,
+        "swerve": {
+          "double[]##v_/SmartDashboard/swerve/desiredChassisSpeeds": {
+            "open": true
+          },
+          "double[]##v_/SmartDashboard/swerve/desiredStates": {
+            "open": true
+          },
+          "double[]##v_/SmartDashboard/swerve/measuredStates": {
+            "open": true
+          },
+          "open": true,
+          "teleop": {
+            "angularSpeedLimit (rad": {
+              "open": true
+            },
+            "linearSpeedLimit (m": {
+              "open": true
+            },
+            "open": true
+          }
+        }
+      }
+    }
+  }
+}
