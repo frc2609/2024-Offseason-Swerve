@@ -23,11 +23,11 @@ public class Drive extends SubsystemBase {
   /** The multiplier to apply to 'Swerve.maxAttainableAngularSpeed'. */
   public final TunableNumber angularSpeedMultiplier = new TunableNumber("swerve/teleop/Angular Speed Multiplier", 1.0);
   /** The multiplier applied by default to getTeleopMaxLinearSpeed(). */
-  private final TunableNumber normalMultiplier = new TunableNumber("swerve/teleop/Normal Speed Multiplier", 0.6);
+  private final TunableNumber normalMultiplier = new TunableNumber("swerve/teleop/Normal Speed Multiplier", 0.9);
   /** How much to increase the speed multiplier in getTeleopMaxLinearSpeed(). */
-  private final TunableNumber boostIncrease = new TunableNumber("swerve/teleop/Boost Speed Multiplier Increase", 0.4);
+  private final TunableNumber boostIncrease = new TunableNumber("swerve/teleop/Boost Speed Multiplier Increase", 0.1);
   /** How much to decrease the speed multiplier in getTeleopMaxLinearSpeed(). */
-  private final TunableNumber precisionReduction = new TunableNumber("swerve/teleop/Precision Speed Multiplier Reduction", 0.4);
+  private final TunableNumber precisionReduction = new TunableNumber("swerve/teleop/Precision Speed Multiplier Reduction", 0.6);
   public final SwerveDrive drive;
 
   /** Creates a new Drive. */
