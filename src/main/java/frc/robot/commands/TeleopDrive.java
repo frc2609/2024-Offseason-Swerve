@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.Xbox;
 import frc.robot.utils.TunableNumber;
 
 /**
@@ -17,7 +18,6 @@ import frc.robot.utils.TunableNumber;
  */
 public class TeleopDrive extends Command {
   private final boolean isFieldRelative;
-  private final double deadband = RobotContainer.drive.drive.swerveController.config.angleJoyStickRadiusDeadband;
   private final TunableNumber normalMultiplier = new TunableNumber("swerve/teleop/Normal Speed Multiplier", 0.6);
   private final TunableNumber boostIncrease = new TunableNumber("swerve/teleop/Boost Speed Multiplier Increase", 0.4);
   private final TunableNumber precisionReduction = new TunableNumber("swerve/teleop/Precision Speed Multiplier Reduction", 0.4);
@@ -36,11 +36,11 @@ public class TeleopDrive extends Command {
   @Override
   public void execute() {
     // controller is +ve backwards, field coordinates are +ve forward
-    final double desiredXTranslation = MathUtil.applyDeadband(-RobotContainer.driverController.getLeftY(), deadband);
+    final double desiredXTranslation = MathUtil.applyDeadband(-RobotContainer.driverController.getLeftY(), Xbox.joystickDeadband);
     // controller is +ve right, field coordinates are +ve left
-    final double desiredYTranslation = MathUtil.applyDeadband(-RobotContainer.driverController.getLeftX(), deadband);
+    final double desiredYTranslation = MathUtil.applyDeadband(-RobotContainer.driverController.getLeftX(), Xbox.joystickDeadband);
     // controller is +ve right (CW+), YAGSL expects CCW+ (+ve left)
-    final double desiredAngularVelocity = MathUtil.applyDeadband(-RobotContainer.driverController.getRightX(), deadband);
+    final double desiredAngularVelocity = MathUtil.applyDeadband(-RobotContainer.driverController.getRightX(), Xbox.joystickDeadband);
 
     final boolean boost = RobotContainer.driverController.rightBumper().getAsBoolean();
     final boolean precision = RobotContainer.driverController.leftBumper().getAsBoolean();

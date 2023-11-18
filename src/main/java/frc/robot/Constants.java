@@ -114,10 +114,15 @@ public final class Constants {
   /** 
    * Xbox controller related constants. 
    * Do not put button or axis numbers in here, instead use the functions it
-   * provides, such as getLeftY() or getXButton().
+   * provides, such as getLeftY() or a() / b() / x() / y().
    */
   public final static class Xbox {
-    /** This should match the deadband specified in YAGSL configuration. */
+    /** 
+     * Not the same as the value in the YAGSL configuration!
+     * <p>Applies to translation and rotation velocity.
+     * The value in the YAGSL configuration is automatically applied to the
+     * rotation joystick when controlling the robot with a desired angle.
+     */
     public static final double joystickDeadband = 0.075;
   }
 }
