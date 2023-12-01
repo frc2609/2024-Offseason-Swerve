@@ -93,8 +93,6 @@ public final class Constants {
     public static final double angleConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(angleGearRatio, 1);
     /** The maximum linear speed a swerve module can achieve in m/s. */
     public static final double maxAttainableLinearSpeed = (maxNEORPM / 60.0) * driveConversionFactor;
-    /** The maximum speed the robot can spin in radians/s. */
-    public static final double maxAttainableAngularSpeed = 2 * Math.PI * (maxAttainableLinearSpeed / Units.inchesToMeters(Dimensions.circularDistance));
   }
 
   /**

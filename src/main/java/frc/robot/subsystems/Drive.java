@@ -28,6 +28,7 @@ public class Drive extends SubsystemBase {
   private final TunableNumber boostIncrease = new TunableNumber("swerve/teleop/Boost Speed Multiplier Increase", 0.1);
   /** How much to decrease the speed multiplier in getTeleopMaxLinearSpeed(). */
   private final TunableNumber precisionReduction = new TunableNumber("swerve/teleop/Precision Speed Multiplier Reduction", 0.6);
+  public final double originalMaxAngularVelocity;
   public final SwerveDrive drive;
 
   /** Creates a new Drive. */
@@ -37,6 +38,7 @@ public class Drive extends SubsystemBase {
     try {
       drive = new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve")).createSwerveDrive(getMaxLinearSpeed(), Swerve.angleConversionFactor, Swerve.driveConversionFactor);
       // drive.setMaximumSpeeds(getMaxLinearSpeed(), getMaxLinearSpeed(), getMaxAngularSpeed());
+      originalMaxAngularVelocity = drive.getSwerveController().config.maxAngularVelocity;
     } catch (IOException e) {
       DataLogManager.log("Swerve Drive File Error: " + e.getMessage());
       throw new RuntimeException("Swerve Drive failed to initialize.");
@@ -49,15 +51,16 @@ public class Drive extends SubsystemBase {
       drive.setMaximumSpeed(MathUtil.clamp(getMaxLinearSpeed(), 0, Swerve.maxAttainableLinearSpeed));
     }
     if (angularSpeedMultiplier.hasChanged(hashCode())) {
-      drive.swerveController.setMaximumAngularVelocity(getMaxAngularSpeed());
+      drive.swerveController.setMaximumAngularVelocity(originalMaxAngularVelocity * angularSpeedMultiplier.get());
     }
   }
 
   public double getMaxAngularSpeed() {
-    return Swerve.maxAttainableAngularSpeed * angularSpeedMultiplier.get();
+    return drive.getSwerveController().config.maxAngularVelocity;
   }
 
   public double getMaxLinearSpeed() {
+    // calculate the value when called because we can't get it from YAGSL
     return Swerve.maxAttainableLinearSpeed * linearSpeedMultiplier.get();
   }
 
