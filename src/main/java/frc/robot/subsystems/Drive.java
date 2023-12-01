@@ -7,6 +7,11 @@ package frc.robot.subsystems;
 import java.io.File;
 import java.io.IOException;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -43,6 +48,23 @@ public class Drive extends SubsystemBase {
       DataLogManager.log("Swerve Drive File Error: " + e.getMessage());
       throw new RuntimeException("Swerve Drive failed to initialize.");
     }
+
+    AutoBuilder.configureHolonomic(
+      drive::getPose,
+      drive::resetOdometry,
+      drive::getRobotVelocity,
+      drive::drive,
+      new HolonomicPathFollowerConfig(
+          new PIDConstants(5.0, 0.0, 0.0),
+          new PIDConstants(5.0, 0.0, 0.0),
+          // limit speeds in the paths, NOT HERE.
+          Swerve.maxAttainableLinearSpeed,
+          // Calculate drivetrain radius
+          Math.sqrt(Math.pow(drive.swerveDriveConfiguration.moduleLocationsMeters[0].getY(), 2) + Math.pow(drive.swerveDriveConfiguration.moduleLocationsMeters[0].getX(), 2)),
+          new ReplanningConfig() // customize this as desired
+      ),
+      this
+    );
   }
 
   @Override
