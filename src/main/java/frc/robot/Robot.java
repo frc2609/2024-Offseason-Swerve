@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.TeleopHeadingDrive;
+import frc.robot.commands.TeleopVelocityDrive;
 import frc.robot.utils.TunableNumber;
 
 public class Robot extends TimedRobot {
@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
-    RobotContainer.drive.setDefaultCommand(new TeleopHeadingDrive(true));
+    RobotContainer.drive.setDefaultCommand(new TeleopVelocityDrive(true));
   }
 
   @Override
