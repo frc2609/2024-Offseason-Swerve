@@ -32,6 +32,7 @@ public class RobotContainer {
 
   private void configureBindings() {
     driverController.x().onTrue(new InstantCommand(drive.drive::lockPose));
+    driverController.start().onTrue(new InstantCommand(drive.drive::zeroGyro));
   }
 
   public Command getAutonomousCommand() {
