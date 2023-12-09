@@ -3,9 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,7 +26,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("WaitForButtonPress", Commands.waitUntil(driverController.a()));
 
     // the auto specified here is chosen by default
-    autoChooser = AutoBuilder.buildAutoChooser("New Auto");
+    autoChooser = AutoBuilder.buildAutoChooser("Two Piece & Balance");
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
