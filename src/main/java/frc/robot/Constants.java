@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.util.PIDConstants;
-
 import edu.wpi.first.math.util.Units;
 import swervelib.math.SwerveMath;
 
@@ -16,24 +14,6 @@ import swervelib.math.SwerveMath;
  * file—not here!
  */
 public final class Constants {
-  /** Autonomous-Related Constants */
-  public static final class Autonomous {
-    /** Which port PathPlannerServer should connect to on the RoboRIO. */
-    public static final int PATHPLANNER_SERVER_PORT = 5811;
-    /** X and Y PID constants for path following. 
-     * Setting these to 0 will use only feedforward.
-     */
-    public static final PIDConstants translationPIDConstants = new PIDConstants(0, 0, 0);
-    /** Rotation PID constants for path following.
-     * Setting these to 0 will use only feedforward.
-    */
-    public static final PIDConstants rotationPIDConstants = new PIDConstants(0, 0, 0);
-    /** The maximum linear acceleration the robot should achieve in m/s^2. */
-    public static final double MAX_LINEAR_ACCELERATION = 1.5;
-    /** The maximum speed the drivetrain should go in autonomous in m/s. */
-    public static final double MAX_LINEAR_VELOCITY = 1.5;
-  }
-
   /** Swerve drive related constants. */
   public final static class Swerve {
     /**
@@ -117,7 +97,7 @@ public final class Constants {
   public final static class Xbox {
     /** 
      * Not the same as the value in the YAGSL configuration!
-     * <p>Applies to translation and rotation velocity.
+     * <p>Applies to translation and rotation VELOCITY.
      * The value in the YAGSL configuration is automatically applied to the
      * rotation joystick when controlling the robot with a desired angle.
      */

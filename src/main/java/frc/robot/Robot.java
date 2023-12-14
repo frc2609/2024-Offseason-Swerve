@@ -30,6 +30,8 @@ public class Robot extends TimedRobot {
 
     reportGitInfo();
 
+    // PathPlanner logs its own info automatically (no need to here)
+
     robotContainer = new RobotContainer();
   }
 
