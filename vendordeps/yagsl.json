@@ -5,9 +5,9 @@
     "frcYear": "2024",
     "uuid": "1ccce5a4-acd2-4d18-bca3-4b8047188400",
     "mavenUrls": [
-        "C:/Users/2609/Robot Code/YAGSL-Lib/yagsl/repos"
+        "https://broncbotz3481.github.io/YAGSL-Lib/yagsl/repos"
     ],
-    "jsonUrl": "C:/Users/2609/Robot Code/YAGSL-Lib/yagsl/yagsl.json",
+    "jsonUrl": "https://broncbotz3481.github.io/YAGSL-Lib/yagsl/yagsl.json",
     "javaDependencies": [
         {
             "groupId": "swervelib",
