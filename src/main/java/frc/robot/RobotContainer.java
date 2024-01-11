@@ -23,6 +23,10 @@ public class RobotContainer {
     configureBindings();
 
     NamedCommands.registerCommand("printOnCheckpoint", Commands.print("Reached Checkpoint!"));
+    NamedCommands.registerCommand("Autobalance", Commands.print("Autobalancing!"));
+    NamedCommands.registerCommand("ScorePiece1", Commands.print("Scoring Piece 1!"));
+    NamedCommands.registerCommand("PickupPiece2", Commands.print("Picking Up Piece 2!"));
+    NamedCommands.registerCommand("ScorePiece2", Commands.print("Scoring Piece 2!"));
     NamedCommands.registerCommand("WaitForButtonPress", Commands.waitUntil(driverController.a()));
 
     // the auto specified here is chosen by default
