@@ -36,8 +36,6 @@ public class RobotContainer {
 
   private void configureBindings() {
     driverController.x().onTrue(new InstantCommand(drive.drive::lockPose));
-    // doesn't do anything except crash the code.
-    driverController.back().onTrue(new InstantCommand(drive.drive::restoreInternalOffset));
     driverController.start().onTrue(new InstantCommand(drive.drive::zeroGyro));
   }
 
