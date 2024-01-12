@@ -27,7 +27,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ScorePiece1", Commands.print("Scoring Piece 1!"));
     NamedCommands.registerCommand("PickupPiece2", Commands.print("Picking Up Piece 2!"));
     NamedCommands.registerCommand("ScorePiece2", Commands.print("Scoring Piece 2!"));
-    NamedCommands.registerCommand("WaitForButtonPress", Commands.waitUntil(driverController.a()));
+    NamedCommands.registerCommand("WaitForButtonPress", Commands.waitUntil(driverController.a()::getAsBoolean));
 
     // the auto specified here is chosen by default
     autoChooser = AutoBuilder.buildAutoChooser("Two Piece & Balance");
@@ -36,6 +36,8 @@ public class RobotContainer {
 
   private void configureBindings() {
     driverController.x().onTrue(new InstantCommand(drive.drive::lockPose));
+    // doesn't do anything except crash the code.
+    driverController.back().onTrue(new InstantCommand(drive.drive::restoreInternalOffset));
     driverController.start().onTrue(new InstantCommand(drive.drive::zeroGyro));
   }
 
