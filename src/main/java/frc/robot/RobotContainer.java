@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.VisionTrackDrive;
 import frc.robot.subsystems.Drive;
 
 public class RobotContainer {
@@ -37,6 +38,7 @@ public class RobotContainer {
   private void configureBindings() {
     driverController.x().onTrue(new InstantCommand(drive.drive::lockPose));
     driverController.start().onTrue(new InstantCommand(drive.drive::zeroGyro));
+    driverController.y().whileTrue(new VisionTrackDrive());
   }
 
   public Command getAutonomousCommand() {
