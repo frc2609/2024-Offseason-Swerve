@@ -12,9 +12,16 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "sequential",
           "data": {
-            "name": "ScoreConeHigh"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ScorePiece1"
+                }
+              }
+            ]
           }
         },
         {
@@ -24,9 +31,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "sequential",
           "data": {
-            "name": "GroundPickup"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "PickupPiece2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WaitForButtonPress"
+                }
+              }
+            ]
           }
         },
         {
@@ -36,9 +56,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "sequential",
           "data": {
-            "name": "ScoreConeHigh"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "ScorePiece2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WaitForButtonPress"
+                }
+              }
+            ]
           }
         },
         {
@@ -48,13 +81,27 @@
           }
         },
         {
-          "type": "named",
+          "type": "sequential",
           "data": {
-            "name": "Autobalance"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Autobalance"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WaitForButtonPress"
+                }
+              }
+            ]
           }
         }
       ]
     }
   },
-  "folder": null
+  "folder": null,
+  "choreoAuto": false
 }

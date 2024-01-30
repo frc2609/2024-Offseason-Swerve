@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.VisionTrackDrive;
 import frc.robot.subsystems.Drive;
 
 public class RobotContainer {
@@ -23,7 +24,11 @@ public class RobotContainer {
     configureBindings();
 
     NamedCommands.registerCommand("printOnCheckpoint", Commands.print("Reached Checkpoint!"));
-    NamedCommands.registerCommand("WaitForButtonPress", Commands.waitUntil(driverController.a()));
+    NamedCommands.registerCommand("Autobalance", Commands.print("Autobalancing!"));
+    NamedCommands.registerCommand("ScorePiece1", Commands.print("Scoring Piece 1!"));
+    NamedCommands.registerCommand("PickupPiece2", Commands.print("Picking Up Piece 2!"));
+    NamedCommands.registerCommand("ScorePiece2", Commands.print("Scoring Piece 2!"));
+    NamedCommands.registerCommand("WaitForButtonPress", Commands.waitUntil(driverController.a()::getAsBoolean));
 
     // the auto specified here is chosen by default
     autoChooser = AutoBuilder.buildAutoChooser("Two Piece & Balance");
@@ -33,6 +38,7 @@ public class RobotContainer {
   private void configureBindings() {
     driverController.x().onTrue(new InstantCommand(drive.drive::lockPose));
     driverController.start().onTrue(new InstantCommand(drive.drive::zeroGyro));
+    driverController.y().whileTrue(new VisionTrackDrive());
   }
 
   public Command getAutonomousCommand() {

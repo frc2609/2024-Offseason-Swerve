@@ -14,6 +14,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DataLogManager;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Swerve;
@@ -65,6 +66,17 @@ public class Drive extends SubsystemBase {
           Math.sqrt(Math.pow(drive.swerveDriveConfiguration.moduleLocationsMeters[0].getY(), 2) + Math.pow(drive.swerveDriveConfiguration.moduleLocationsMeters[0].getX(), 2)),
           new ReplanningConfig() // customize this as desired
       ),
+      () -> {
+        // Boolean supplier that controls when the path will be mirrored for the red alliance
+        // This will flip the path being followed to the red side of the field.
+        // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent()) {
+          return alliance.get() == DriverStation.Alliance.Red;
+        }
+        return false;
+      },
       this
     );
 
